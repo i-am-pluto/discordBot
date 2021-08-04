@@ -173,7 +173,7 @@ class levelling(commands.Cog):
             
             j[str(ctx.guild.id)][t]['level'] = count
             level = count
-            j[str(ctx.guild.id)][t]['xp'] = 15*level*level+15
+            j[str(ctx.guild.id)][t]['xp'] >= 15*level*level+15
             f = open(f"levels/{ctx.guild.id}.json","w+")
             json.dump(j,f)
             f.close()
