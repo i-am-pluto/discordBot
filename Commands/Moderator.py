@@ -180,19 +180,24 @@ class Moderation(commands.Cog):
             data = json.load(f)
             f.close()
             if(data['levelling'] == True):
-                f = open(f"levels/{member.guild.id}.json","r+")
+                f = open(f"levels/{member.guild.id}.json","r")
                 d = json.load(f)
+                f.close()
                 d[str(member.guild.id)].append({
                     "id":member.id,
                     "level":0,
                     "xp":0
                 })
+                f = open(f"levels/{member.guild.id}.json","w")
                 json.dump(d,f)
                 f.close()
+                
             if(data['strike'] == True):
-                f = open(f"strikes/{member.guild.id}.json","r+")
+                f = open(f"strikes/{member.guild.id}.json","r")
                 d = json.load(f)
+                f.close()
                 d[str(member.guild.id)].append({"id":member.id,"strike":0})
+                f = open(f"strikes/{member.guild.id}.json","w")
                 json.dump(d,f)
                 f.close()
         except:
