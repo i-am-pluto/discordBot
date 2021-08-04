@@ -71,14 +71,15 @@ class levelling(commands.Cog):
             j[str(message.guild.id)][t]["xp"]+=d
             xp = j[str(message.guild.id)][t]["xp"]
             level  = j[str(message.guild.id)][t]['level']
-            f = open(f"levels/{message.guild.id}.json","w")
+            
             # print(4)
-            if xp==15*level*level:
+            if xp==15*level*level+15:
                 j[str(message.guild.id)][t]['level']+=1
                 level = j[str(message.guild.id)][t]['level']
                 # print(5)    
                 await c.send(f"Congratulations {message.author}!! On the lvl up !! You have advanced to {j[str(message.author.id)]['level']} level")
             # print(5)
+            f = open(f"levels/{message.guild.id}.json","w")
             json.dump(j,f)
             f.close()
             self.rankgen(message)
@@ -172,7 +173,7 @@ class levelling(commands.Cog):
             
             j[str(ctx.guild.id)][t]['level'] = count
             level = count
-            j[str(ctx.guild.id)][t]['xp'] = 15*level*level
+            j[str(ctx.guild.id)][t]['xp'] = 15*level*level+15
             f = open(f"levels/{ctx.guild.id}.json","w+")
             json.dump(j,f)
             f.close()
