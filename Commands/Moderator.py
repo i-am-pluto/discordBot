@@ -201,8 +201,7 @@ class Moderation(commands.Cog):
                 json.dump(d,f)
                 f.close()
         except:
-            print("Moderation not set")        
-
+            print("Moderation not set")
     @commands.command()
     @has_permissions(administrator=True)
     async def set_punishments(self,ctx):
