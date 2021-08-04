@@ -80,11 +80,8 @@ class levelling(commands.Cog):
                 print("levels")
                 # print(5)    
                 print(c.id)
-                # await c.send(content="1")
-                # print(message.author)
-
-                await c.send(content=f"Congratulations {message.author.mention}!! On the lvl up !! You have advanced to {level} level")
-                print(5)
+                await c.send(content="1")
+                await c.send(content=f"Congratulations {message.author}!! On the lvl up !! You have advanced to {j[str(message.author.id)]['level']} level")
             # print(5)
             f = open(f"levels/{message.guild.id}.json","w")
             json.dump(j,f)
