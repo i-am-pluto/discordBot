@@ -108,8 +108,7 @@ class levelling(commands.Cog):
                     await message.author.add_roles(self.bot.get_role(data['roles'][i]))
                 print("perks given")
             except:
-                pass
-                
+                pass    
     @commands.command()
     async def levels(self,ctx,userName:discord.Member=None):
             f = open(f"Moderation/{ctx.guild.id}.json","r")
