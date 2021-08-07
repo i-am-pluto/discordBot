@@ -18,22 +18,30 @@ class levelling(commands.Cog):
         self.bot = bot
 
     def rankgen(self,message):
+        # print(6)
         f = open(f"levels/{message.guild.id}.json","r")
         j = json.load(f)
         f.close()
+        # print(7)
         d={}
         for i in range(len(j[str(message.guild.id)])):
+            # print("o")
             d[j[str(message.guild.id)][i]['id']]=j[str(message.guild.id)][i]['xp']
+            # print("p")
+        # print(8)
         d = {k: v for k, v in sorted(
         d.items(), key=lambda item: item[1], reverse=True)}    
         lis = []
+        # print(9)
         for p in d.keys():
             lis.append(p)
         dic = {
             str(message.guild.id):lis
         }    
+        # print(10)
         f = open(f"levels/ranking/{message.guild.id}.json","w")
         json.dump(dic,f)
+        # print(11)
         f.close()
 
 
@@ -52,30 +60,32 @@ class levelling(commands.Cog):
             except:
                 pass    
 
-
+        # try:
             f = open(f"Moderation/{message.guild.id}.json","r")
             json_object=json.load(f)
             f.close()
             if(json_object['levelling']==False):
                 print("Levelling Not set")
                 return
-
+            # print(1)
             c = self.bot.get_channel(json_object['levelup_channel'])
             f = open(f"levels/{message.guild.id}.json","r")
             j = json.load(f)
-
+            # print(2)
             t=0
             for i in range(len(j[str(message.guild.id)])):
                 if j[str(message.guild.id)][i]['id']==message.author.id:
                     t=i
             f.close()
-
+            # print(3)
             d = len(message.content)
             if d>10:
                 d=10
             j[str(message.guild.id)][t]["xp"]+=d
             xp = j[str(message.guild.id)][t]["xp"]
             level  = j[str(message.guild.id)][t]['level']
+            
+            # print(4)
             if xp>=100*level*level*level+100:
                 # j[str(message.guild.id)][t]['xp']=0
                 j[str(message.guild.id)][t]['level']+=1
@@ -152,30 +162,33 @@ class levelling(commands.Cog):
                 return
             if userName==None:
                 userName=ctx.author
+            # print(1)    
             f = open(f"levels/ranking/{ctx.guild.id}.json","r")
+            # print(2)
             d = json.load(f)
+            # print(5)
             f.close()
             lis = d[str(ctx.guild.id)]
+            
+            # print(2)
             rank =1
             for i in lis:
                 if (i == userName.id):
                     break
                 rank+=1
+            # print(3)    
             embed = discord.Embed()
             embed.title=f"{userName} is on rank {rank}"
             embed.description=f"Keep grinding"
             await ctx.send(content=ctx.author.mention, embed=embed)
+        except:
+            print("leveler not set")
 
 
     @commands.command()
     @has_permissions(administrator=True)
     async def setlevel(self,ctx,userName:discord.Member,count:int):
-            f = open(f"Moderation/{ctx.guild.id}.json","r")
-            json_object=json.load(f)
-            f.close()
-            if(json_object['levelling']==False):
-                print("Levelling Not set")
-                return
+        # try:
             f = open(f"levels/{ctx.guild.id}.json","r")
             j = json.load(f)
             print(1)
@@ -183,9 +196,12 @@ class levelling(commands.Cog):
             for i in range(len(j[str(ctx.guild.id)])):
                 if j[str(ctx.guild.id)][i]['id']==userName.id:
                     t=i
+            
             xp= j[str(ctx.guild.id)][t]['xp']
+            
             f.close()
             level= j[str(ctx.guild.id)][t]['level']
+            
             j[str(ctx.guild.id)][t]['level'] = count
             level = count
             if count==0:
@@ -199,26 +215,31 @@ class levelling(commands.Cog):
             embed = discord.Embed()
             embed.title=f"{userName}'s level has been set to lvl {level}"
             await ctx.send(content=ctx.author.mention, embed=embed)
+        
             f = open(f"levels/leveluproles/{ctx.guild.id}.json","r")
             data = json.load(f)
             f.close()
             m = data['count']
+            print(m,count)
             index = count//m
+            print(1)
+            print(index)
             print(data['roles'])
             if(index>len(data['roles'])):
                 index = len(data['roles'])
             for i in range(index):
+                # print("OOO")
                 role = ctx.guild.get_role(data['roles'][i])
+                # print("III")
                 await userName.add_roles(role)
+            print(2)
+            print("perks given")
+        # except:
+        #     print("leveler not set")
 
     @commands.command()
     async def leaderboard(self,ctx):
-            f = open(f"Moderation/{ctx.guild.id}.json","r")
-            json_object=json.load(f)
-            f.close()
-            if(json_object['levelling']==False):
-                print("Levelling Not set")
-                return
+        try:
             a_file=open(f"levels/ranking/{ctx.guild.id}.json","r")
             json_object = json.load(a_file)
             a_file.close()
@@ -262,7 +283,9 @@ class levelling(commands.Cog):
             embed1.description = "The leaderboard is as follows:-"
 
             await ctx.send(content=ctx.author.mention, embed=embed1, file=discord.File("leaderboard.png"))
-            os.remove("leaderboard.png")      
+            os.remove("leaderboard.png")    
+        except:
+            print("leveler not set")    
 
 def setup(bot):
     bot.add_cog(levelling(bot))

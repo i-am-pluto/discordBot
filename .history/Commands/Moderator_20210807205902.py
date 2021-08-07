@@ -300,10 +300,9 @@ class Moderation(commands.Cog):
     @commands.command()
     @has_permissions(administrator=True)
     async def set_noxp(self,ctx,roleid:int):
-        f = open(f"levels/{ctx.guild.id}noxp.txt","w")
+        f = open("levels/noxp.txt","w")
         f.write(str(roleid))
         f.close()
-        role = ctx.guild.get_role(roleid)
-        ctx.send(embed=discord.Embed(description=role.mention),content="The no xp role has been set to this")
+
 def setup(bot):
     bot.add_cog(Moderation(bot))

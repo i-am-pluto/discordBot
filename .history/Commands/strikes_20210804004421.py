@@ -92,14 +92,6 @@ class strikes(commands.Cog):
     @commands.command()
     # @has_permissions(manage_roles=True)        
     async def strikes(self,ctx,userName: discord.Member=None):
-        
-        f = open(f"Moderation/{ctx.guild.id}.json","r")
-        j = json.load(f)
-        if j['strike'] == False:
-            print("strikes not enabled")
-            return
-
-        
         if userName == None:
             userName = ctx.author
         a_file = open(f"strikes/{ctx.guild.id}.json","r")

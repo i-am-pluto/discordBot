@@ -21,16 +21,16 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game("Badmashi na kro\n,help"))
     print("Ready")
 
-# @bot.event
-# async def on_command_error(ctx,error):
-#     if isinstance(error, commands.errors.CommandNotFound):
-#         await ctx.send("The command you specified was not found.")
+@bot.event
+async def on_command_error(ctx,error):
+    if isinstance(error, commands.errors.CommandNotFound):
+        await ctx.send("The command you specified was not found.")
 
-#     elif isinstance(error, commands.MissingRequiredArgument):
-#         await ctx.send("You are missing a required argument.")
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("You are missing a required argument.")
 
-#     elif isinstance(error, commands.errors.MissingPermissions) or isinstance(error, discord.Forbidden):
-#         await ctx.send("You don't have the permission for that command.")            
+    elif isinstance(error, commands.errors.MissingPermissions) or isinstance(error, discord.Forbidden):
+        await ctx.send("You don't have the permission for that command.")            
 
 load_dotenv()
 
