@@ -76,7 +76,7 @@ class levelling(commands.Cog):
             j[str(message.guild.id)][t]["xp"]+=d
             xp = j[str(message.guild.id)][t]["xp"]
             level  = j[str(message.guild.id)][t]['level']
-            if xp>=200*level*level*level+100:
+            if xp>=500*level*level*level+100:
                 # j[str(message.guild.id)][t]['xp']=0
                 j[str(message.guild.id)][t]['level']+=1
                 print("level up recorded")
@@ -84,7 +84,7 @@ class levelling(commands.Cog):
                 print("levels")
                 print(c.id)
 
-                msg = await c.send(embed = discord.Embed(title=f"Congratulations!! On the lvl up !! You have advanced to {level} level"),content=message.author.mention)
+                msg = await c.send(embed = discord.Embed(title=f"Congratulations!! On the lvl up !! You have advanced to {level} level"),content=message.author)
                 await msg.add_reaction('👍')
 
             f = open(f"levels/{message.guild.id}.json","w")
@@ -100,14 +100,13 @@ class levelling(commands.Cog):
                 index = m//10
             if(index>len(data['roles'])):
                 index = len(data['roles'])
-            # print("p")
-            # print(index)
+            print("p")
+            print(index)
             try:
                 for i in range(index):
-                    # print("o")
+                    print("o")
                     await message.author.add_roles(self.bot.get_role(data['roles'][i]))
-                if(index>0):
-                    print("perks given")
+                print("perks given")
             except:
                 pass
 
@@ -132,26 +131,26 @@ class levelling(commands.Cog):
                     t=i
             xp= j[str(ctx.guild.id)][t]['xp']   
             level= j[str(ctx.guild.id)][t]['level']
-            limit  =200*level*level*level+100
-            olLimit = 200*(level-1)*(level-1)*(level-1)+100
+            limit  =500*level*level*level+100
+            olLimit = 500*(level-1)*(level-1)*(level-1)+100
             print(xp,limit)
             percentage = ((xp-olLimit)/(limit-olLimit))*100
             print(percentage)
-            # print(3)
+            print(3)
             embed = discord.Embed()
-            # print(5)
+            print(5)
             embed.title=f"{str(userName)[:-5]} is on lvl {level}"
-            # print(4)
+            print(4)
             embed.description=f"{userName.mention} keep grinding.."
             labels= ['Progress',""]
             color=['purple','pink']
             sizes= [percentage, 100-percentage]
-            # print(1)
+            print(1)
             fig = plt.figure(figsize=(5,5))
             plt.pie(sizes,labels=labels,shadow=True,colors=color,explode=(0.1,0.1))
             plt.title(f'{str(userName)[:-5]}')
             plt.axis('equal')
-            # print(1)
+            print(1)
             fig.savefig(f"{ctx.author.id}.png")
             await ctx.send(content=ctx.author.mention, file = discord.File(f"{ctx.author.id}.png"),embed=embed)
             os.remove(f"{ctx.author.id}.png")
@@ -193,7 +192,7 @@ class levelling(commands.Cog):
                 return
             f = open(f"levels/{ctx.guild.id}.json","r")
             j = json.load(f)
-            # print(1)
+            print(1)
             t=0
             for i in range(len(j[str(ctx.guild.id)])):
                 if j[str(ctx.guild.id)][i]['id']==userName.id:
@@ -219,7 +218,7 @@ class levelling(commands.Cog):
             f.close()
             m = data['count']
             index = count//m
-            # print(data['roles'])
+            print(data['roles'])
             if(index>len(data['roles'])):
                 index = len(data['roles'])
             for i in range(index):

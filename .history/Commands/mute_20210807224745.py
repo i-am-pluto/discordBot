@@ -43,7 +43,8 @@ class mute(commands.Cog):
         except:
             await ctx.send(content=ctx.author.mention,embed=discord.Embed(description="```<prefix>mute <duration in minutes> <reason>```"))
             return
-        embed = discord.Embed(title=f"{userName} got muted for {duration/60} minutes in {ctx.guild.name}", description=reason, color=0xFF5733)
+        embed = discord.Embed()
+        embed.title=f"{userName} got muted for {duration/60} minutes in {ctx.guild.name}", description=reason, color=0xFF5733)
         embed.set_thumbnail(url=userName.avatar_url)
         embed.set_image(
             url="https://media.tenor.com/images/9d608d7015ea4284450b35db979f7379/tenor.gif")

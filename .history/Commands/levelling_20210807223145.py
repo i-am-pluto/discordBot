@@ -84,7 +84,7 @@ class levelling(commands.Cog):
                 print("levels")
                 print(c.id)
 
-                msg = await c.send(embed = discord.Embed(title=f"Congratulations!! On the lvl up !! You have advanced to {level} level"),content=message.author.mention)
+                msg = await c.send(embed = discord.Embed(title=f"Congratulations!! On the lvl up !! You have advanced to {level} level"),content=message.author)
                 await msg.add_reaction('👍')
 
             f = open(f"levels/{message.guild.id}.json","w")
@@ -106,8 +106,7 @@ class levelling(commands.Cog):
                 for i in range(index):
                     # print("o")
                     await message.author.add_roles(self.bot.get_role(data['roles'][i]))
-                if(index>0):
-                    print("perks given")
+                print("perks given")
             except:
                 pass
 
