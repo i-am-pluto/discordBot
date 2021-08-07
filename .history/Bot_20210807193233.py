@@ -31,9 +31,7 @@ async def on_command_error(ctx,error):
 
     elif isinstance(error, commands.errors.MissingPermissions) or isinstance(error, discord.Forbidden):
         await ctx.send("You don't have the permission for that command.")            
-@bot.command()
-async def ping(ctx):
-    await ctx.send('`{0}ms`'.format(round(bot.latency, 1)))
+
 load_dotenv()
 
 TOKEN = os.getenv("DISCORD_TOKEN")

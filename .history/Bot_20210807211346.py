@@ -33,7 +33,7 @@ async def on_command_error(ctx,error):
         await ctx.send("You don't have the permission for that command.")            
 @bot.command()
 async def ping(ctx):
-    await ctx.send('`{0}ms`'.format(round(bot.latency, 1)))
+    await ctx.send('Pong! {0}'.format(round(bot.latency, 1)))
 load_dotenv()
 
 TOKEN = os.getenv("DISCORD_TOKEN")
